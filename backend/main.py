@@ -42,10 +42,7 @@ app.add_middleware(
     CORSMiddleware,
     # IMPORTANT: Browsers reject allow_credentials=true with allow_origins="*".
     # Use explicit origins in production (set ALLOWED_ORIGINS on Render).
-    allow_origins=[
-        "https://pingroomchatroom.vercel.app",
-        "https://pingroomchatroom-p9iow24mn-gurkirat201005-8303s-projects.vercel.app",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
