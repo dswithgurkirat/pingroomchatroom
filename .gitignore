@@ -1,0 +1,20 @@
+# Root ignores (repo-wide)
+
+# Secrets
+backend/.env
+
+# Python
+**/__pycache__/
+**/*.py[cod]
+backend/.venv/
+
+# Node / Next.js
+**/node_modules/
+frontend/.next/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+**/.vscode/
+**/.idea/
+
