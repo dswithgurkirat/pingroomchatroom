@@ -1,4 +1,15 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+function normalizeApiBaseUrl(input: string): string {
+  // Allow either:
+  // - https://example.com/api/v1
+  // - https://example.com
+  // and normalize to the /api/v1 base without trailing slash
+  const trimmed = input.replace(/\/+$/, "");
+  return trimmed.endsWith("/api/v1") ? trimmed : `${trimmed}/api/v1`;
+}
+
+const API_BASE_URL = normalizeApiBaseUrl(
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+);
 
 export interface User {
   id: string;       // mapped from user_id
