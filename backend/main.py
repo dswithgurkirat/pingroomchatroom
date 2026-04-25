@@ -43,7 +43,7 @@ app.add_middleware(
     # IMPORTANT: Browsers reject allow_credentials=true with allow_origins="*".
     # Use explicit origins in production (set ALLOWED_ORIGINS on Render).
     allow_origins=settings.allowed_origins_list,
-    allow_credentials=settings.ALLOWED_ORIGINS != "*",
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -66,3 +66,4 @@ async def root():
 @app.get("/health", tags=["Health"])
 async def health_check():
     return {"status": "healthy"}
+
