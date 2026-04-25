@@ -1,3 +1,4 @@
+import json
 from typing import List
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -36,7 +37,18 @@ class Settings(BaseSettings):
     def allowed_origins_list(self) -> List[str]:
         if self.ALLOWED_ORIGINS == "*":
             return ["*"]
-        return [origin.strip() for origin in self.ALLOWED_ORIGINS.split(",")]
+        raw = self.ALLOWED_ORIGINS.strip()
+        # Support either:
+        # - comma separated: "https://a.com,https://b.com"
+        # - JSON list: ["https://a.com","https://b.com"]
+        if raw.startswith("["):
+            try:
+                value = json.loads(raw)
+                if isinstance(value, list):
+                    return [str(origin).strip() for origin in value if str(origin).strip()]
+            except Exception:
+                pass
+        return [origin.strip() for origin in raw.split(",") if origin.strip()]
 
 
 settings = Settings()
